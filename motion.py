@@ -56,6 +56,17 @@ def set_up_folder():
     os.chdir(path_str)
 
 
+def add_zeros_to_number(num):
+    num_str = str(num)
+
+    num_zeros = 6 - len(num_str)
+
+    if num_zeros > 0:
+        return '0' * num_zeros + num_str
+    else:
+        return num_str
+
+
 def run_camera():
     global video_counter
 
@@ -65,7 +76,9 @@ def run_camera():
 
         timestamp = datetime.now().strftime("%H.%M")
 
-        output = f"{FILENAME_PREFIX}-{video_counter}-[{timestamp}].h264"
+        video_counter_str = add_zeros_to_number(video_counter)
+
+        output = f"{FILENAME_PREFIX}-{video_counter_str}-[{timestamp}].h264"
 
         picam2.start_recording(encoder, output)
         sleep(15)
