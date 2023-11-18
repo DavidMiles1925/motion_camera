@@ -19,7 +19,7 @@ DELAY_TIME = 3
 picam2 = Picamera2()
 video_config = picam2.create_video_configuration()
 picam2.configure(video_config)
-encoder = H264Encoder(bitrate=10000000)
+encoder = H264Encoder(bitrate=1000000)
 
 def setup_pins():
     GPIO.setmode(GPIO.BCM)
