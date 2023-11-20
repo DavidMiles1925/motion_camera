@@ -191,3 +191,8 @@ if __name__ == "__main__":
         print(e)
         print(e.args)
         write_to_log(e)
+        print("The machine will reboot in 15 seconds.")
+        print("Pres CRTL-C to cancel")
+        sleep(15)
+        write_to_log("SYSTEM REBOOTED")
+        os.system("sudo reboot")
