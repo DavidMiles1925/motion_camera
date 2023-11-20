@@ -13,16 +13,22 @@ This project was inspired by a neighborhood cat that would come into our house t
 >>
 >>`{FILENAME_PREFIX}`-000000-[hh.mm]
 >
+>---
+>
 >**`SAVE_DIRECTORY_PATH`**
 >
 >>- example: "/home/meowth/motion_camera/recordings"  
 >>- **NOTE:** that any subdirectories inside of the project folder (such as 'recordings' above) MUST be created before running the program. The program will automatically create a directory for the videos recorded during a particular day, however that is the ONLY directory it will create.
+>
+>---
 >
 >**`DIRECTORY_NAME_PREFIX`**
 >
 >>This is the name of the directiory where the video files will be stored.
 >>
 >>`{DIRECTORY_NAME_PREFIX}`MM.DD.YYYY
+>
+>---
 >
 >**`LED_INDICATORS`**
 >
