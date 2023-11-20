@@ -5,22 +5,45 @@ from picamera2.encoders import H264Encoder
 from picamera2 import Picamera2
 from time import sleep
 
+# Import constants from config.py
 from config import FILENAME_PREFIX, SAVE_DIRECTORY_PATH, DIRECTORY_NAME_PREFIX, LED_INDICATORS
 
+# Set up pins for LED indicators
 POWER_LED_PIN = 20
 RECORD_LED_PIN = 16
 
+# Set up pin for on/off switch. 
+# THE SWITCH ONLY WORKS WHEN THE PROGRAM IS ALREADY RUNNING
 SWITCH_PIN = 26
 
+# Set up pin for motion detector
 MOTION_PIN = 25
 
-DELAY_TIME = 3
+##################################################
+##################################################
+#####                                        #####
+#####            SET UP CAMERA               #####
+#####                                        #####
+##################################################
+##################################################
+
 
 picam2 = Picamera2()
 video_config = picam2.create_video_configuration()
 picam2.configure(video_config)
 encoder = H264Encoder(bitrate=1000000)
 
+
+##################################################
+##################################################
+#####                                        #####
+#####         SUPPORTING FUNCTIONS           #####
+#####                                        #####
+##################################################
+##################################################
+
+
+# Sets up pin configuration
 def setup_pins():
     GPIO.setmode(GPIO.BCM)
 
@@ -37,6 +60,9 @@ def setup_pins():
     GPIO.setup(MOTION_PIN, GPIO.IN)
 
 
+# Used to turn a pin on or off.
+#   Note that the `status` parameter is optional and only 
+#   needs to be passed for a `False` value
 def pin(pin, status=True):
     if LED_INDICATORS == True:
         if status == False:
@@ -45,6 +71,7 @@ def pin(pin, status=True):
             GPIO.output(pin, GPIO.HIGH)
 
 
+# Sets up the folder where the videos will be stored.
 def set_up_folder():
     folder_time = datetime.now().strftime("%m.%d.%Y")
 
@@ -56,6 +83,9 @@ def set_up_folder():
     os.chdir(path_str)
 
 
+# Adds zeros to the video number in the filename.
+#   - This was done to ensure videos stayed in chronological
+#     order, even when displayed alphabetically.
 def add_zeros_to_number(num):
     num_str = str(num)
 
@@ -65,6 +95,26 @@ def add_zeros_to_number(num):
         return '0' * num_zeros + num_str
     else:
         return num_str
+    
+
+# The sequence for cleaning up and stopping the program.
+def stop_program():
+    print("\n\n")
+
+    print("Cleaning up GPIO...")
+    GPIO.cleanup()
+
+    print("Done")
+    exit()
+
+
+##################################################
+##################################################
+#####                                        #####
+#####            CAMERA FUNCTION             #####
+#####                                        #####
+##################################################
+##################################################
 
 
 def run_camera():
@@ -83,6 +133,7 @@ def run_camera():
         picam2.start_recording(encoder, output)
         sleep(15)
 
+        # If there is still motion, continue recording.
         while GPIO.input(MOTION_PIN):
             sleep(15)
         
@@ -94,15 +145,13 @@ def run_camera():
         pin(RECORD_LED_PIN, False)
 
 
-def stop_program():
-    print("\n\n")
-
-    print("Cleaning up GPIO...")
-    GPIO.cleanup()
-
-    print("Done")
-    exit()
-
+##################################################
+##################################################
+#####                                        #####
+#####             MAIN FUNCTION              #####
+#####                                        #####
+##################################################
+##################################################
 
 
 if __name__ == "__main__":
@@ -113,6 +162,8 @@ if __name__ == "__main__":
 
         set_up_folder()
 
+        # Checks to see if the switch is in the `ON` position.
+        #   - If it is, the `run_camera` funtion will be triggered.
         while True:
             pin(POWER_LED_PIN)
 
@@ -129,4 +180,5 @@ if __name__ == "__main__":
 
     except Exception as e:
         print("\n\nThe program stopped unexpectedly.")
+        print(e)
         print(e.args)
