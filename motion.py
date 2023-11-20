@@ -124,6 +124,7 @@ def run_camera():
 
     if GPIO.input(MOTION_PIN):
         print("Camera Running")
+        write_to_log("Camera Running")
         pin(RECORD_LED_PIN)
 
         timestamp = datetime.now().strftime("%H.%M")
@@ -144,6 +145,7 @@ def run_camera():
         video_counter = video_counter + 1
 
         print(f"Recorded {output}")
+        write_to_log(f"Recorded {output}")
         pin(RECORD_LED_PIN, False)
 
 
@@ -158,6 +160,7 @@ def run_camera():
 
 if __name__ == "__main__":
     try:
+        write_to_log("PROGRAM STARTED")
         video_counter = 0
 
         setup_pins()
