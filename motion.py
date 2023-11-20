@@ -82,6 +82,10 @@ def run_camera():
 
         picam2.start_recording(encoder, output)
         sleep(15)
+
+        while GPIO.input(MOTION_PIN):
+            sleep(15)
+        
         picam2.stop_recording()
 
         video_counter = video_counter + 1
