@@ -21,6 +21,8 @@ SWITCH_PIN = 26
 # Set up pin for motion detector
 MOTION_PIN = 25
 
+path_str = ""
+
 ##################################################
 ##################################################
 #####                                        #####
@@ -75,6 +77,7 @@ def pin(pin, status=True):
 
 # Sets up the folder where the videos will be stored.
 def set_up_folder():
+    global path_str
     folder_time = datetime.now().strftime("%m.%d.%Y")
 
     path_str = f"{SAVE_DIRECTORY_PATH}{DIRECTORY_NAME_PREFIX}{folder_time}"
@@ -121,10 +124,10 @@ def stop_program():
 
 def run_camera():
     global video_counter
+    global path_str
 
     if GPIO.input(MOTION_PIN):
         print("Camera Running")
-        write_to_log("Camera Running")
         pin(RECORD_LED_PIN)
 
         timestamp = datetime.now().strftime("%H.%M")
@@ -145,7 +148,6 @@ def run_camera():
         video_counter = video_counter + 1
 
         print(f"Recorded {output}")
-        write_to_log(f"Recorded {output}")
         pin(RECORD_LED_PIN, False)
 
 
