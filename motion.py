@@ -8,6 +8,8 @@ from time import sleep
 # Import constants from config.py
 from config import FILENAME_PREFIX, SAVE_DIRECTORY_PATH, DIRECTORY_NAME_PREFIX, LED_INDICATORS
 
+from logger import write_to_log
+
 # Set up pins for LED indicators
 POWER_LED_PIN = 20
 RECORD_LED_PIN = 16
@@ -177,8 +179,10 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
         stop_program()
+        write_to_log("PROGRAM STOPPED MANUALLY")
 
     except Exception as e:
         print("\n\nThe program stopped unexpectedly.")
         print(e)
         print(e.args)
+        write_to_log(e)
