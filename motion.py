@@ -183,8 +183,8 @@ if __name__ == "__main__":
 
 
     except KeyboardInterrupt:
-        stop_program()
         write_to_log("PROGRAM STOPPED MANUALLY")
+        stop_program()
 
     except Exception as e:
         print("\n\nThe program stopped unexpectedly.")
