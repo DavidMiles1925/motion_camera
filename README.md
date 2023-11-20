@@ -4,6 +4,8 @@ This project was inspired by a neighborhood cat that would come into our house t
 
 ## Notes for future me:
 
+**Comments have been left in the code for easy reviewing when coming back to this project after a long time.**
+
 ### config.py:
 
 >**`FILENAME_PREFIX`**
