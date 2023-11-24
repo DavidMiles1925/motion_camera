@@ -22,7 +22,7 @@ SWITCH_PIN = 26
 # Set up pin for motion detector
 MOTION_PIN = 25
 
-recordings_path_str = ""
+recordings_path_str = "none"
 
 ##################################################
 ##################################################
@@ -54,6 +54,9 @@ def console_and_log(message=""):
 
     if LOGGING_ENABLED:
         write_to_log(message)
+
+    if recordings_path_str != "none":
+        os.chdir(recordings_path_str)
 
 # Sets up pin configuration
 def setup_pins():
@@ -136,8 +139,6 @@ def run_camera():
     if GPIO.input(MOTION_PIN):
         console_and_log("Camera Running")
         pin(RECORD_LED_PIN)
-
-        set_up_folder()
 
         timestamp = datetime.now().strftime("%H.%M")
 

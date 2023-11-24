@@ -7,10 +7,8 @@ def write_to_log(message):
     timestamp = datetime.now().strftime("%H.%M.%S")
 
     fname = f"{datestamp}-log.txt"
-    print(f"Datestamp: {datestamp}")
 
     path_str = f"{LOG_DIRECTORY_PATH}"
-    print(f"LOG_DIRECTORY_PATH: {LOG_DIRECTORY_PATH}")
 
     if os.path.exists(path_str) == False:
         os.mkdir(path_str)
