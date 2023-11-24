@@ -29,9 +29,11 @@ def stop_motion_program():
             lines = output.decode().split('\n')
             for line in lines:
                 if f'{filename}' in line:
-                    console_and_log(f"The program was stopped via SSH connection. Process ('{filename}') with PID {pid}")
                     # Extract the PID from the output
                     pid = int(line.split()[1])
+
+                    console_and_log(f"The program was stopped via SSH connection. Process ('{filename}') with PID {pid}")
+                    
                     # Stop the process using the PID
                     os.system(f"sudo kill -TERM {pid}")
                     print(f"Process with PID {pid}  has been stopped.")
