@@ -27,27 +27,29 @@ def stop_motion_program():
 
         if output:
             lines = output.decode().split('\n')
+
             for line in lines:
+
                 if f'{filename}' in line:
+
                     # Extract the PID from the output
                     pid = int(line.split()[1]) 
 
                     # Stop the process using the PID
                     os.system(f"sudo kill -TERM {pid}")
-                    print(f"Process with PID {pid}  has been stopped.")
                     console_and_log(f"The program was stopped via SSH connection. Process ('{filename}') with PID {pid}")
-                    return True  # Exit the function after stopping the process
-            print(f"No process with '{filename}' found.")
-            return False  # No process found to stop
+                    return True
+                
+            console_and_log(f"No process with '{filename}' found.")
+            return False
         else:
-            print(f"No output received. Check if '{filename}' process is running.")
-            return False  # No output received
+            console_and_log(f"No output received. Check if '{filename}' process is running.")
+            return False
     except Exception as e:
-        print(f"Error occurred: {e}")
-        return False  # Error occurred while trying to stop the process
+        console_and_log(f"Error occurred: {e}")
+        return False
 
 
-# Function for logging and printing to console. Can be easily enabled/diabled through the console
 def console_and_log(message=""):
     if CONSOLE_OUTPUT_ON:
         print(message)
