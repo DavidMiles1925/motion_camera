@@ -6,7 +6,7 @@ from picamera2 import Picamera2
 from time import sleep
 
 # Import constants from config.py
-from config import FILENAME_PREFIX, SAVE_DIRECTORY_PATH, DIRECTORY_NAME_PREFIX, LED_INDICATORS, LOGGING_ENABLED, CONSOLE_OUTPUT_ON
+from config import FILENAME_PREFIX, SAVE_DIRECTORY_PATH, DIRECTORY_NAME_PREFIX, LED_INDICATORS
 
 from logger import write_to_log
 
