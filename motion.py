@@ -103,10 +103,10 @@ def set_up_folder():
 # Adds zeros to the video number in the filename.
 #   - This was done to ensure videos stayed in chronological
 #     order, even when displayed alphabetically.
-def add_zeros_to_number(num):
+def add_zeros_to_number(num, amt):
     num_str = str(num)
 
-    num_zeros = 6 - len(num_str)
+    num_zeros = amt - len(num_str)
 
     if num_zeros > 0:
         return '0' * num_zeros + num_str
@@ -135,7 +135,7 @@ def stop_program():
 
 
 def run_camera():
-    # global video_counter
+    global video_counter
 
     if GPIO.input(MOTION_PIN):
         console_and_log("Camera Running")
@@ -143,10 +143,9 @@ def run_camera():
 
         timestamp = datetime.now().strftime("%H.%M")
 
-        # video_counter_str = add_zeros_to_number(video_counter)
+        video_counter_str = add_zeros_to_number(video_counter, 4)
 
-        # output = f"{FILENAME_PREFIX}-{video_counter_str}-[{timestamp}].h264"
-        output = f"{FILENAME_PREFIX}[{timestamp}].h264"
+        output = f"{FILENAME_PREFIX}-{video_counter_str}-[{timestamp}].h264"
 
         picam2.start_recording(encoder, output)
         sleep(15)
@@ -157,7 +156,7 @@ def run_camera():
         
         picam2.stop_recording()
 
-        # video_counter = video_counter + 1
+        video_counter = video_counter + 1
 
         console_and_log(f"Recorded {output}")
         pin(RECORD_LED_PIN, False)
@@ -175,7 +174,7 @@ def run_camera():
 if __name__ == "__main__":
     try:
         console_and_log("PROGRAM STARTED")
-        # video_counter = 0
+        video_counter = 0
 
         setup_pins()
 
