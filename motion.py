@@ -4,7 +4,6 @@ import os
 from picamera2.encoders import H264Encoder
 from picamera2 import Picamera2
 from time import sleep
-from pathlib import Path
 
 # Import constants from config.py
 from config import FILENAME_PREFIX, SAVE_DIRECTORY_PATH, DIRECTORY_NAME_PREFIX, LED_INDICATORS, LOGGING_ENABLED, CONSOLE_OUTPUT_ON
@@ -50,7 +49,7 @@ encoder = H264Encoder(bitrate=1000000)
 # Function for logging and printing to console. Can be easily enabled/diabled through the console
 def console_and_log(message=""):
     global recordings_path_str
-    
+
     if CONSOLE_OUTPUT_ON:
         print(message)
 
@@ -136,7 +135,7 @@ def stop_program():
 
 
 def run_camera():
-    global video_counter
+    # global video_counter
 
     if GPIO.input(MOTION_PIN):
         console_and_log("Camera Running")
@@ -144,9 +143,10 @@ def run_camera():
 
         timestamp = datetime.now().strftime("%H.%M")
 
-        video_counter_str = add_zeros_to_number(video_counter)
+        # video_counter_str = add_zeros_to_number(video_counter)
 
-        output = f"{FILENAME_PREFIX}-{video_counter_str}-[{timestamp}].h264"
+        # output = f"{FILENAME_PREFIX}-{video_counter_str}-[{timestamp}].h264"
+        output = f"{FILENAME_PREFIX}[{timestamp}].h264"
 
         picam2.start_recording(encoder, output)
         sleep(15)
@@ -159,7 +159,7 @@ def run_camera():
 
         video_counter = video_counter + 1
 
-        print(f"Recorded {output}")
+        console_and_log(f"Recorded {output}")
         pin(RECORD_LED_PIN, False)
 
 
@@ -174,8 +174,8 @@ def run_camera():
 
 if __name__ == "__main__":
     try:
-        write_to_log("PROGRAM STARTED")
-        video_counter = 0
+        console_and_log("PROGRAM STARTED")
+        # video_counter = 0
 
         setup_pins()
 
@@ -195,16 +195,16 @@ if __name__ == "__main__":
 
 
     except KeyboardInterrupt:
-        write_to_log("PROGRAM STOPPED MANUALLY")
+        console_and_log("PROGRAM STOPPED MANUALLY")
         stop_program()
 
     except Exception as e:
         print("\n\nThe program stopped unexpectedly.")
         print(e)
         print(e.args)
-        write_to_log(e)
+        console_and_log(e)
         print("The machine will reboot in 15 seconds.")
         print("Press CRTL-C to cancel")
         sleep(15)
-        write_to_log("SYSTEM REBOOTED")
+        console_and_log("SYSTEM REBOOTED")
         os.system("sudo reboot")
