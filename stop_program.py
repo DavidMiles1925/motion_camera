@@ -17,27 +17,29 @@ from logger import write_to_log
 import subprocess
 import os
 
+filename = "motion.py"
+
 def stop_motion_program():
     try:
-        command = "ps aux | grep 'motion.py' | grep -v grep"
+        command = f"ps aux | grep '{filename}' | grep -v grep"
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output, _ = process.communicate()
 
         if output:
             lines = output.decode().split('\n')
             for line in lines:
-                if 'motion.py' in line:
+                if f'{filename}' in line:
                     # Extract the PID from the output
                     pid = int(line.split()[1])
                     # Stop the process using the PID
                     os.system(f"sudo kill -TERM {pid}")
-                    print(f"Process with PID {pid} ('motion.py') has been stopped.")
-                    console_and_log("The program was stopped via SSH connection. Process with PID {pid}")
+                    print(f"Process with PID {pid}  has been stopped.")
+                    console_and_log(f"The program was stopped via SSH connection. Process ('{filename}') with PID {pid}")
                     return True  # Exit the function after stopping the process
-            print("No process with 'motion.py' found.")
+            print(f"No process with '{filename}' found.")
             return False  # No process found to stop
         else:
-            print("No output received. Check if 'motion.py' process is running.")
+            print(f"No output received. Check if '{filename}' process is running.")
             return False  # No output received
     except Exception as e:
         print(f"Error occurred: {e}")
