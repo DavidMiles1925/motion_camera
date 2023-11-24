@@ -17,7 +17,7 @@ def stop_motion_program():
                     # Extract the PID from the output
                     pid = int(line.split()[1])
                     # Stop the process using the PID
-                    os.kill(pid, 9)
+                    os.system(f"sudo kill -TERM {pid}")
                     print(f"Process with PID {pid} ('motion.py') has been stopped.")
                     return True  # Exit the function after stopping the process
             print("No process with 'motion.py' found.")
