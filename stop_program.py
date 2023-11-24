@@ -1,3 +1,16 @@
+######################################################################
+######################################################################
+#####                                                            #####
+#####                        STOP PROGRAM                        #####
+#####                                                            #####
+#####    This script is to stop the program after accessing      #####
+#####    the Raspberry Pi via SSH. Since it is running in the    #####
+#####    background, CTRL-C does not work.                       #####
+#####                                                            #####
+######################################################################
+######################################################################
+
+
 from config import LOGGING_ENABLED, CONSOLE_OUTPUT_ON
 from logger import write_to_log
 
@@ -19,6 +32,7 @@ def stop_motion_program():
                     # Stop the process using the PID
                     os.system(f"sudo kill -TERM {pid}")
                     print(f"Process with PID {pid} ('motion.py') has been stopped.")
+                    console_and_log("The program was stopped via SSH connection. Process with PID {pid}")
                     return True  # Exit the function after stopping the process
             print("No process with 'motion.py' found.")
             return False  # No process found to stop
@@ -38,7 +52,6 @@ def console_and_log(message=""):
     if LOGGING_ENABLED:
         write_to_log(message)
 
-console_and_log("The program was stopped via SSH connection.")
 
 # Example usage
 stop_motion_program()
