@@ -22,3 +22,5 @@ def write_to_log(message):
         fout = open(fname, 'w')
         fout.write(f"{timestamp}:   ")
         fout.write(f"{message}\n\n")
+
+    fout.close()
