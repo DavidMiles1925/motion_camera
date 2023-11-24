@@ -49,6 +49,8 @@ encoder = H264Encoder(bitrate=1000000)
 
 # Function for logging and printing to console. Can be easily enabled/diabled through the console
 def console_and_log(message=""):
+    global recordings_path_str
+    
     if CONSOLE_OUTPUT_ON:
         print(message)
 
