@@ -4,9 +4,10 @@ import os
 from picamera2.encoders import H264Encoder
 from picamera2 import Picamera2
 from time import sleep
+from pathlib import Path
 
 # Import constants from config.py
-from config import FILENAME_PREFIX, SAVE_DIRECTORY_PATH, DIRECTORY_NAME_PREFIX, LED_INDICATORS
+from config import FILENAME_PREFIX, SAVE_DIRECTORY_PATH, DIRECTORY_NAME_PREFIX, LED_INDICATORS, LOGGING_ENABLED, CONSOLE_OUTPUT_ON
 
 from logger import write_to_log
 
@@ -21,7 +22,7 @@ SWITCH_PIN = 26
 # Set up pin for motion detector
 MOTION_PIN = 25
 
-path_str = ""
+recordings_path_str = ""
 
 ##################################################
 ##################################################
@@ -46,6 +47,13 @@ encoder = H264Encoder(bitrate=1000000)
 ##################################################
 ##################################################
 
+# Function for logging and printing to console. Can be easily enabled/diabled through the console
+def console_and_log(message=""):
+    if CONSOLE_OUTPUT_ON:
+        print(message)
+
+    if LOGGING_ENABLED:
+        write_to_log(message)
 
 # Sets up pin configuration
 def setup_pins():
@@ -77,15 +85,15 @@ def pin(pin, status=True):
 
 # Sets up the folder where the videos will be stored.
 def set_up_folder():
-    global path_str
+    global recordings_path_str
     folder_time = datetime.now().strftime("%m.%d.%Y")
 
-    path_str = f"{SAVE_DIRECTORY_PATH}{DIRECTORY_NAME_PREFIX}{folder_time}"
+    recordings_path_str = f"{SAVE_DIRECTORY_PATH}{DIRECTORY_NAME_PREFIX}{folder_time}"
     
-    if os.path.isdir(path_str) ==  False:
-        os.mkdir(path_str)
+    if os.path.isdir(recordings_path_str) ==  False:
+        os.mkdir(recordings_path_str)
 
-    os.chdir(path_str)
+    os.chdir(recordings_path_str)
 
 
 # Adds zeros to the video number in the filename.
@@ -124,11 +132,12 @@ def stop_program():
 
 def run_camera():
     global video_counter
-    global path_str
 
     if GPIO.input(MOTION_PIN):
-        print("Camera Running")
+        console_and_log("Camera Running")
         pin(RECORD_LED_PIN)
+
+        set_up_folder()
 
         timestamp = datetime.now().strftime("%H.%M")
 
@@ -141,7 +150,7 @@ def run_camera():
 
         # If there is still motion, continue recording.
         while GPIO.input(MOTION_PIN):
-            sleep(15)
+            sleep(5)
         
         picam2.stop_recording()
 
@@ -192,7 +201,7 @@ if __name__ == "__main__":
         print(e.args)
         write_to_log(e)
         print("The machine will reboot in 15 seconds.")
-        print("Pres CRTL-C to cancel")
+        print("Press CRTL-C to cancel")
         sleep(15)
         write_to_log("SYSTEM REBOOTED")
         os.system("sudo reboot")

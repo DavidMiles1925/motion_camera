@@ -17,13 +17,6 @@ This project was inspired by a neighborhood cat that would come into our house t
 >
 >---
 >
->**`SAVE_DIRECTORY_PATH`**
->
->>- example: "/home/meowth/motion_camera/recordings"  
->>- **NOTE:** that any subdirectories inside of the project folder (such as 'recordings' above) MUST be created before running the program. The program will automatically create a directory for the videos recorded during a particular day, however that is the ONLY directory it will create.
->
->---
->
 >**`DIRECTORY_NAME_PREFIX`**
 >
 >>This is the name of the directiory where the video files will be stored.
@@ -32,6 +25,21 @@ This project was inspired by a neighborhood cat that would come into our house t
 >
 >---
 >
+>**`SAVE_DIRECTORY_PATH`**
+>
+>> This sets the path o where the videos will be saved.
+>>- example: "/home/meowth/motion_camera/recordings"  
+>>- **NOTE:** that any subdirectories inside of the project folder (such as 'recordings' above) MUST be created before running the program. The program will automatically create a directory for the videos recorded during a particular day, however that is the ONLY directory it will create.
+>
+>---
+>
+>**`LOG_DIRECTORY_PATH`**
+>
+>> This sets the path to where the logs will be saved.
+>>- example: "/home/meowth/motion_camera/logs"  
+>>- **NOTE:** that any subdirectories inside of the project folder (such as 'logs' above) MUST be created before running the program. The program will automatically create a directory for the videos recorded during a particular day, however that is the ONLY directory it will create.
+>
+>---
 >**`LED_INDICATORS`**
 >
 >This turns the LED indicators on or off.
@@ -43,3 +51,7 @@ This project was inspired by a neighborhood cat that would come into our house t
 ### preview.py
 
 This file was used during testing. It starts the camera with a preview window in order to verify the camera is working, and to test the camera under various conditions.
+
+### logger.py
+
+Used to log stopping and starting events in the program for reference after being remotely deployed.
