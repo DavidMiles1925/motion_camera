@@ -157,7 +157,7 @@ def run_camera():
         
         picam2.stop_recording()
 
-        video_counter = video_counter + 1
+        # video_counter = video_counter + 1
 
         console_and_log(f"Recorded {output}")
         pin(RECORD_LED_PIN, False)
