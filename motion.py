@@ -144,12 +144,9 @@ def run_camera():
 
         timestamp = datetime.now().strftime("%H.%M")
 
-        # **UNCOMMENT THESE LINES TO ADD COUNTER TO FILENAME**
+        video_counter_str = add_zeros_to_number(video_counter, 3)
 
-        #video_counter_str = add_zeros_to_number(video_counter, 4)
-
-        output = f"{FILENAME_PREFIX}[{timestamp}].h264"
-        # output = f"{FILENAME_PREFIX}-{video_counter_str}-[{timestamp}].h264"
+        output = f"{FILENAME_PREFIX}-{video_counter_str}-[{timestamp}].h264"
 
         picam2.start_recording(encoder, output)
         sleep(15)
