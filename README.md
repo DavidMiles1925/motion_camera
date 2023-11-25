@@ -117,7 +117,7 @@ sudo nano /motion_camera/logs/Fri01-log.txt
 >
 >**`SAVE_DIRECTORY_PATH`**
 >
->> This sets the path o where the videos will be saved.
+>> This sets the path to where the videos will be saved.
 >>- example: "/home/meowth/motion_camera/recordings"  
 >>- **NOTE:** that any subdirectories inside of the project folder (such as 'recordings' above) MUST be created before running the program. The program will automatically create a directory for the videos recorded during a particular day, however that is the ONLY directory it will create.
 >
@@ -126,6 +126,8 @@ sudo nano /motion_camera/logs/Fri01-log.txt
 > **`CONSOLE_OUTPUT_ON`**
 > 
 >> Boolean value that determines whether output will logged to the console.
+>
+>---
 >
 > **`LOGGING_ENABLED`**
 >
