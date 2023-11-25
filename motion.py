@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
 
     except KeyboardInterrupt:
-        console_and_log("PROGRAM STOPPED MANUALLY")
+        console_and_log("Program stopped with CTRL-C")
         stop_program()
 
     except Exception as e:
@@ -206,7 +206,7 @@ if __name__ == "__main__":
         print(e.args)
         console_and_log(e)
         if REBOOT_ON_EXCEPTION:
-            print("The machine will reboot in 15 seconds.")
+            print("The machine will reboot in 60 seconds.")
             print("Press CRTL-C to cancel")
             sleep(60)
             console_and_log("SYSTEM REBOOTED")

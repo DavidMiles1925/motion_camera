@@ -103,7 +103,8 @@ sudo nano /motion_camera/logs/Fri01-log.txt
 >>This prefix will be added to the beginning of each file  
 >>- **NOTE:** that without a prefix, the filename will begin with a '-'.
 >>
->>`{FILENAME_PREFIX}`-000000-[hh.mm]
+>> Example:  
+>>`{FILENAME_PREFIX}-000000-[hh.mm]`
 >
 >---
 >
@@ -111,27 +112,28 @@ sudo nano /motion_camera/logs/Fri01-log.txt
 >
 >>This is the name of the directiory where the video files will be stored.
 >>
->>`{DIRECTORY_NAME_PREFIX}`MM.DD.YYYY
+>> Example:  
+>>`{DIRECTORY_NAME_PREFIX}MM.DD.YYYY`
 >
 >---
 >
 >**`SAVE_DIRECTORY_PATH`**
 >
 >> This sets the path to where the videos will be saved.
->>- example: "/home/meowth/motion_camera/recordings"  
+>>- Example: "/home/meowth/motion_camera/recordings"  
 >>- **NOTE:** that any subdirectories inside of the project folder (such as 'recordings' above) MUST be created before running the program. The program will automatically create a directory for the videos recorded during a particular day, however that is the ONLY directory it will create.
 >
 >---
 >
 > **`CONSOLE_OUTPUT_ON`**
 > 
->> Boolean value that determines whether output will logged to the console.
+>> Boolean value that determines whether output will be logged to the console.
 >
 >---
 >
 > **`LOGGING_ENABLED`**
 >
->> Boolean value that determines whether output will logged to log file.
+>> Boolean value that determines whether output will be logged to the log file.
 >
 >---
 >
@@ -167,17 +169,12 @@ This script was created to stop the program while accessing the device via SSH. 
 sudo python stop_program.py
 ```
 
-After you have finished what you need to do, be sure to restart the system so that the program starts again.
+After you have finished, be sure to reboot the system so that the program starts again.
 
 ```bash
 sudo reboot
 ```
-
 **NOTE: YOU MUST USE `sudo` when running this script**
-
-```bash
-sudo python stop_program.py
-```
 
 ### preview.py
 
