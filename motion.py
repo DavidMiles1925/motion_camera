@@ -4,6 +4,7 @@ import os
 from picamera2.encoders import H264Encoder
 from picamera2 import Picamera2
 from time import sleep
+from config import REBOOT_ON_EXCEPTION
 
 # Import constants from config.py
 from config import FILENAME_PREFIX, SAVE_DIRECTORY_PATH, DIRECTORY_NAME_PREFIX, LED_INDICATORS, LOGGING_ENABLED, CONSOLE_OUTPUT_ON
@@ -199,11 +200,11 @@ if __name__ == "__main__":
 
     except Exception as e:
         print("\n\nThe program stopped unexpectedly.")
-        print(e)
         print(e.args)
         console_and_log(e)
-        print("The machine will reboot in 15 seconds.")
-        print("Press CRTL-C to cancel")
-        sleep(15)
-        console_and_log("SYSTEM REBOOTED")
-        os.system("sudo reboot")
+        if REBOOT_ON_EXCEPTION:
+            print("The machine will reboot in 15 seconds.")
+            print("Press CRTL-C to cancel")
+            sleep(60)
+            console_and_log("SYSTEM REBOOTED")
+            os.system("sudo reboot")

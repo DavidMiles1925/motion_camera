@@ -29,4 +29,16 @@ LOGGING_ENABLED = True
 
 LOG_DIRECTORY_PATH = "/home/meowth/motion_camera/logs/"
 
+
+##############################
+##############################
+#####                    #####
+#####     OPERATION      #####
+#####                    #####
+##############################
+##############################
+
+
+REBOOT_ON_EXCEPTION = True
+
 LED_INDICATORS = False

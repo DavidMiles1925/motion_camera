@@ -4,39 +4,100 @@ This project was inspired by a neighborhood cat that would come into our house t
 
 ## Setting up the Program:
 
-### Materials
-
-- Raspberry Pi Zero
-- Camera Module
-- PIR Motion Sensor Module
-- [Other Materials Needed]
-
 ### Diagram
 
 <img src="./readme/motion_camera_diagram.png">
 
+- Note: For connecting directly to the camera, you will need some [additional materials.](#option-1-direct-cable-link)
+
 ### Walkthrough:
 
-1. Set up the Raspberry Pi Zero. [INSTRUCTIONS HERE](https://github.com/DavidMiles1925/pi_zero_setup)
+1. Set up the Raspberry Pi Zero. [INSTRUCTIONS HERE](https://github.com/DavidMiles1925/pi_zero_setup). **Ensure you set up a Static IP Address.**
 
 2. Install Code:
 
 ```bash
 git clone https://DavidMiles1925/motion_camera.git
 ```
-3. Wire up the Pi:
-
-[Diagram](#diagram)
+3. Wire up the Pi: See [diagram](#diagram) above.
 
 4. Set up the program to run on starup. [INSTRUCTIONS HERE](https://github.com/DavidMiles1925/pi_zero_setup#configure-a-program-to-run-on-startup)
 
+5. Edit config.py to configure the program. See the [instructions for modifying config.py](#configpy)
 
-## Notes for future me:
 
-**Comments have been left in the code for easy reviewing when coming back to this project after a long time.**
+## Using the program:
+
+### Turning on the Camera:
+
+>
+> **Be sure to [`CONFIGURE`](#configpy) the program before running.**
+> 
+> The program will automatically start on boot. (If you followed step 4 in [Walkthrough](#walkthrough)) This takes ~2 minutes.
+> 
+> To turn on the motion camera, simply power on the device and toggle the switch to the ON position.
+>
+
+### Accessing the Machine
+
+>
+> Access to the file system can be achieved in one of two ways:
+> 
+> #### Option 1: Direct Cable Link
+> 
+> You will need some additional materials:
+> - Mini HDMI Cable or adapter
+> - Micro USB Cable or adapter
+> - Monitor
+> - Keyboard
+> 
+> Connect everything to your Pi (Power port is the farthest from HDMI on the Pi Zero).
+> 
+> Once powered up, proceed to [Copying Videos] or [Accessing Logs]
+> 
+> #### Option 2: SSH Connection
+>
+>**Note: Running the program directly through the SSH shell will cause the program to close when the SSH connection is severed. To restart the program once it has stopped, it is recommended that you reboot the machine in order to restart the program.**
+> 
+> Ensure you have set up a [static IP address](https://github.com/DavidMiles1925/pi_zero_setup#configure-static-ip-address). Once you have done so, open a terminal window from another machine and access the motion camera Pi.
+> 
+> ```bash
+> ssh username@192.168.1.1
+> ```
+> 
+
+### Copying Videos
+
+>
+>**It is a good idea to [stop the program](#stop_programpy) before copying videos.**
+>
+>Format: scp -r [source] [destination]
+>
+>Example from source machine:
+>
+>```bash
+>scp -r /home/usename/motion_camera_recordings/vids01.01.2050/ user@:/home/copy/here
+>```
+>
+
+### Stopping the program:
+>
+>Run the [stop_program.py](#stop_programpy) script **using `sudo`**
+>
+
+## Technical Notes:
+
+### Viewing the Logs
+
+```bash
+sudo nano /motion_camera/logs/Fri01-log.txt
+```
 
 ### config.py:
 
+**Comments have been left in the code for easy reviewing when coming back to this project after a long time.**
+
+>
 >**`FILENAME_PREFIX`**
 >
 >>This prefix will be added to the beginning of each file  
@@ -79,7 +140,15 @@ git clone https://DavidMiles1925/motion_camera.git
 >>- **NOTE:** that any subdirectories inside of the project folder (such as 'logs' above) MUST be created before running the program. The program will automatically create a directory for the videos recorded during a particular day, however that is the ONLY directory it will create.
 >
 >---
+>
+>**`REBOOT_ON_EXCEPTION`**
+>
+>> When set to True, the system will automatically reboot after 60 seconds. This is useful if for some reason an error occurs with the camera and stops the program. This way, the camera will attept to keep iteself running when unattended for long periods.
+>
+>---
 >**`LED_INDICATORS`**
+>
+> **NOTE: This camera is not intended to be used for survelliance purposes. LED indicators should always be ACTIVE AND VISIBLE in places where there is A REASONABLE EXPECTATION OF PRIVACY. Check your local laws to ensure you are not breaking them.**
 >
 >This turns the LED indicators on or off.
 >
@@ -91,6 +160,16 @@ git clone https://DavidMiles1925/motion_camera.git
 ### stop_program.py
 
 This script was created to stop the program while accessing the device via SSH. The main program was not directly accessible through the CLI because it was running in the background. This allowed the process of stopping the program to be logged, creating a timestamp to determine how long the camera was off.
+
+```bash
+sudo python stop_program.py
+```
+
+After you have finished what you need to do, be sure to restart the system so that the program starts again.
+
+```bash
+sudo reboot
+```
 
 **NOTE: YOU MUST USE `sudo` when running this script**
 
