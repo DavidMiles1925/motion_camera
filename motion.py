@@ -58,7 +58,7 @@ def console_and_log(message=""):
         write_to_log(message)
 
     if recordings_path_str != "none":
-        os.chdir(recordings_path_str)
+        set_up_folder()
 
 # Sets up pin configuration
 def setup_pins():
