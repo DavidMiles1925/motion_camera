@@ -14,32 +14,40 @@ This project was inspired by a neighborhood cat that would come into our house t
 
 1. Set up the Raspberry Pi Zero. [INSTRUCTIONS HERE](https://github.com/DavidMiles1925/pi_zero_setup). **Ensure you set up a Static IP Address.**
 
-2. Install Code:
+2. Wire up the Pi: See [diagram](#diagram) above.
+
+3. Install Code:
 
 ```bash
 git clone https://DavidMiles1925/motion_camera.git
 ```
-3. Wire up the Pi: See [diagram](#diagram) above.
 
-4. Set up the program to run on starup. [INSTRUCTIONS HERE](https://github.com/DavidMiles1925/pi_zero_setup#configure-a-program-to-run-on-startup)
+4. Edit config.py to configure the program. See the [instructions for modifying config.py](#configpy)
 
-5. Edit config.py to configure the program. See the [instructions for modifying config.py](#configpy)
+5. Set up the program to run on starup. [INSTRUCTIONS HERE](https://github.com/DavidMiles1925/pi_zero_setup#configure-a-program-to-run-on-startup)
+
+
 
 
 ## Using the program:
 
-### Turning on the Camera:
-
+### Configuring the program
 >
 > **Be sure to [`CONFIGURE`](#configpy) the program before running.**
+> - See the configuration [technical notes](#configpy) for more information.
+> - The `SAVE_DIRECTORY_PATH` and `LOG_DIRECTORY_PATH paths` will need to be set for the program to run correctly.
+> - If you are recording in an area with people present, ensure the `LED_INDICATORS` value in the config file is set to `True`.
+> - Set the value of `RESTART_ON_EXCEPTION` to `False` while testing the machine to avoid a loop you can't get out of.
+>
+
+### Turning on the Camera:
 > 
-> The program will automatically start on boot. (If you followed step 4 in [Walkthrough](#walkthrough)) This takes ~2 minutes.
+> The program will automatically start on boot. (If you followed step 5 in the [Walkthrough](#walkthrough)) This takes ~2 minutes.
 > 
 > To turn on the motion camera, simply power on the device and toggle the switch to the ON position.
 >
 
 ### Accessing the Machine
-
 >
 > Access to the file system can be achieved in one of two ways:
 > 
@@ -168,13 +176,13 @@ This script was created to stop the program while accessing the device via SSH. 
 ```bash
 sudo python stop_program.py
 ```
+**NOTE: You MUST use `sudo` when running this script**
 
 After you have finished, be sure to reboot the system so that the program starts again.
 
 ```bash
 sudo reboot
 ```
-**NOTE: YOU MUST USE `sudo` when running this script**
 
 ### preview.py
 
