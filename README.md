@@ -1,5 +1,33 @@
 # Motion Activated Camera
 
+## Table of Contents
+
+<details><summary>Click to expand...</summary>
+
+**- [Project Description](#project-description)**  
+
+**- [Setting up the Program](#setting-up-the-program)**  
+ &emsp;- [Diagram](#diagram)  
+ &emsp;- [Walkthrough](#inspiration)  
+
+**- [Using the Program](#using-the-program)**  
+ &emsp;- [Configure the Program](#configuring-the-program)  
+ &emsp;- [Turning on the Camera](#turning-on-the-camera)  
+ &emsp;- [Accessing the Machine](#accessing-the-machine)  
+ &emsp;- [Copying Videos](#copying-videos)  
+
+**- [Technical Notes](#technical-notes)**  
+ &emsp;- [Viewing the Logs](#viewing-the-logs)  
+ &emsp;- [config.py](#configpy)  
+ &emsp;- [stop_program.py](#stop_programpy)  
+ &emsp;- [preview.py](#previewpy)  
+ &emsp;- [logger.py](#loggerpy)  
+
+</details>
+
+---
+## Project Description
+
 This project was inspired by a neighborhood cat that would come into our house through our pet door and make himself at home. We weren't sure when he would come in. We'd always just find him there. I built this motion-sensing camera and set it up next to my pet door so I could find out when the little guy was getting into the house.
 
 ## Setting up the Program:
@@ -167,6 +195,10 @@ sudo nano /motion_camera/logs/Fri01-log.txt
 >`True`: The LED indicators will function normally. This is useful for testing when away from a monitor/keyboard. Also, when recording people, this lets others know that the device is on and/or recording.
 >
 >`False`: The LED indicators will be disabled. This is useful for recording animals, or other situations where you would not want to it to be immediately obvious that the camera is doing anything.
+>
+> Green LED: Indicates the camera program is running and searching for motion.
+>
+> Red LED: Indicates the camera is currently recording.
 >
 
 ### stop_program.py
