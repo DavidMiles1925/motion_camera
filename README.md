@@ -131,7 +131,7 @@ sudo nano /motion_camera/logs/Fri01-log.txt
 >
 > **`LOGGING_ENABLED`**
 >
->> Boolean value that determines whether output will logged to the console.
+>> Boolean value that determines whether output will logged to log file.
 >
 >---
 >
