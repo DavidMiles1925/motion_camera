@@ -10,10 +10,9 @@
 ######################################################################
 ######################################################################
 
-
 from config import LOGGING_ENABLED, CONSOLE_OUTPUT_ON
 from logger import write_to_log
-
+import RPi.GPIO as GPIO
 import subprocess
 import os
 
@@ -38,6 +37,7 @@ def stop_motion_program():
                     # Stop the process using the PID
                     os.system(f"sudo kill -TERM {pid}")
                     console_and_log(f"The program was stopped via SSH connection. Process ('{filename}') with PID {pid}")
+                    GPIO.cleanup()
                     return True
                 
             console_and_log(f"No process with '{filename}' found.")

@@ -13,14 +13,14 @@ from logger import write_to_log
 
 # Set up pins for LED indicators
 POWER_LED_PIN = 20
-RECORD_LED_PIN = 16
+RECORD_LED_PIN = 25
 
 # Set up pin for on/off switch. 
 # THE SWITCH ONLY WORKS WHEN THE PROGRAM IS ALREADY RUNNING
 SWITCH_PIN = 26
 
 # Set up pin for motion detector
-MOTION_PIN = 25
+MOTION_PIN = 16
 
 recordings_path_str = "none"
 
