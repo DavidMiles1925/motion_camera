@@ -13,6 +13,8 @@ DIRECTORY_NAME_PREFIX = "basement"
 
 SAVE_DIRECTORY_PATH = "/home/meowth/motion_camera/recordings/"
 
+CAMERA_SLEEP_TIME = 20
+
 
 ##############################
 ##############################

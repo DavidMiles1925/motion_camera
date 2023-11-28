@@ -7,7 +7,7 @@ from time import sleep
 from config import REBOOT_ON_EXCEPTION
 
 # Import constants from config.py
-from config import FILENAME_PREFIX, SAVE_DIRECTORY_PATH, DIRECTORY_NAME_PREFIX, LED_INDICATORS, LOGGING_ENABLED, CONSOLE_OUTPUT_ON
+from config import FILENAME_PREFIX, SAVE_DIRECTORY_PATH, DIRECTORY_NAME_PREFIX, LED_INDICATORS, LOGGING_ENABLED, CONSOLE_OUTPUT_ON, CAMERA_SLEEP_TIME
 
 from logger import write_to_log
 
@@ -149,11 +149,11 @@ def run_camera():
         output = f"{FILENAME_PREFIX}-[{timestamp}]-{video_counter_str}.h264"
 
         picam2.start_recording(encoder, output)
-        sleep(15)
+        sleep(CAMERA_SLEEP_TIME)
 
         # If there is still motion, continue recording.
         while GPIO.input(MOTION_PIN):
-            sleep(15)
+            sleep(CAMERA_SLEEP_TIME)
         
         picam2.stop_recording()
 
