@@ -146,14 +146,14 @@ def run_camera():
 
         video_counter_str = add_zeros_to_number(video_counter, 3)
 
-        output = f"{FILENAME_PREFIX}-{video_counter_str}-[{timestamp}].h264"
+        output = f"{FILENAME_PREFIX}-[{timestamp}]-{video_counter_str}.h264"
 
         picam2.start_recording(encoder, output)
         sleep(15)
 
         # If there is still motion, continue recording.
         while GPIO.input(MOTION_PIN):
-            sleep(5)
+            sleep(15)
         
         picam2.stop_recording()
 
